@@ -1,0 +1,200 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.manageHeaders {
+    display: flex;
+    justify-content: center;
+    width: 75%;
+    justify-self: center;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.manageHeaders .settingHeader:not(:last-child) {
+    border-right: 2px solid rgba(127,127,127,255); /* little hack to make all the opacities consistent */
+}
+
+.manageHeaders .settingHeader, .selectedSettingHeader, .lastSelectedSettingHeader {
+    width: 25%;
+    font-size: 1.5rem;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    background-color: transparent;
+    font-family: inherit;
+}
+
+.manageHeaders .settingHeader {
+    color: rgba(127,127,127,255);
+}
+
+.manageHeaders .selectedSettingHeader {
+    border-right: 2px solid rgba(127,127,127,255);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.lastSelectedSettingHeader {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.manageTeamTable, .manageUserTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--white);
+}
+
+.tableRow {
+    border-bottom: 2px solid var(--black);
+}
+
+table td {
+    padding: 15px 0;
+    padding-left: 10px;
+}
+
+.teamHeaderColumn, .userColumn {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.teamActionsColumn, .actionsColumn {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.teamHeaderColumn, .teamActionsColumn, .userColumn, .moduleColumn, .roleColumn, .actionsColumn {
+    border-bottom: 2px solid var(--black);
+    font-size: 1.25rem;
+}
+
+.moduleColumn {
+    text-align:center;
+}
+
+.editInputMode {
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.deleteBtn, .saveBtn, .cancelBtn, .editBtn button, .cancelBtn, .addBtn {
+    border-color: transparent;
+    border-radius: 100px;
+    font-size: inherit;
+    font-family: inherit;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.deleteBtn:hover, .saveBtn:hover, .editBtn button:hover, .cancelBtn:hover {
+    cursor: pointer;
+}
+
+.deleteBtn {
+    background-color: var(--red);
+}
+
+.saveBtn, .addBtn {
+    background-color: var(--light-green);
+}
+
+.editBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.editBtn button {
+    background-color: var(--yellow-green);
+}
+
+.cancelBtn {
+    background-color: var(--grey);
+    border-style: solid;
+    border-color: var(--black);
+    border-width: 2px;
+}
+
+.addModuleBtn, .addStudentBtn {
+    color: var(--blue);
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+}
+
+.addStudentBtn {
+    align-self: flex-start;
+}
+
+.addModuleBtn:hover, .addStudentBtn:hover {
+    cursor: pointer;
+}
+
+.addTeamModeContainer {
+    display: flex;
+}
+
+.addModuleTeamInputs {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.addModuleTeamInputs input, .addModuleTeamInputs select, .tableRow select{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: inherit;
+    font-family: inherit;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.actions2Btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.actions2Btns button:hover {
+    cursor: pointer;
+}
+
+.ithData {
+    text-align: center;
+}
+
+.addStudentRow input, .addStudentRow select {
+    margin: 0;
+    border-radius: 5px;
+    padding: 0px 10px;
+    font-size: inherit;
+    font-family: inherit;
+    border-width: 2px;
+    border-style: solid;
+    margin-bottom: 10px;
+}
+
+.addStudentRow {
+    display: flex;
+    flex-direction: column;
+}
+
+.addStudentActionsRow .actions2Btns {
+    display: flex;
+    justify-self: flex-left;
+}

@@ -1,0 +1,179 @@
+.aboutMainContainer {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.introSectionMain, .slideGDDIntro {
+    background-color: var(--black);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: calc(100vw - 4em);
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.cohortSlide {
+    background-color: var(--dark-green);
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 4em);
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.cohortInfoContainer {
+    width: calc(100% - 4em);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+.cohortYearHeader {
+    color: var(--white);
+    margin: 0;
+    font-weight: 500;
+    font-size: 3em;
+}
+
+.cohortImageContainer {
+    width: 50%;
+    height: auto;
+}
+
+.membersContainer {
+    display: flex;
+    text-transform: capitalize;
+    color: var(--white);
+}
+
+.yearsContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.yearBtn {
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    font-family: inherit;
+}
+
+.yearItemCurr {
+    color: var(--white);
+}
+
+.yearItemHide {
+    color: var(--white);
+    opacity: .5
+}
+
+.homeBtn {
+    position: sticky;
+    margin-top: -30px;
+    top: 0;
+    margin-left: 0;
+    background: transparent;
+    border: none;
+    padding: 20px;
+    width: fit-content;
+}
+
+.headerContainer {
+    margin-top: 3em;
+}
+
+.headerContainer h1 {
+    padding: 0;
+    margin: 0px;    
+    font-size: 3em;
+    line-height: 1em;
+}
+
+.pageContent {
+    text-transform: none !important;
+    font-weight: 400 !important;
+    font-size: 1.25em;
+
+}
+
+.homeBtn a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.homeBtn .arrowLeft {
+    transform: rotate(130deg);
+    border: solid var(--white);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.homeBtn:hover a, 
+.homeBtn:hover .arrowLeft {
+    color: var(--med-green);
+    border-color: var(--med-green); 
+}
+
+
+.introContent h1, .introContent p, .slideGDDIntro h1, .slideGDDIntro p {
+    color: var(--white);
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.introContent .headerHighlight, .slideGDDIntro .headerHighlight {
+    color: var(--light-green)
+}
+
+.contentNav {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    color: var(--white);
+    background-color: transparent;
+    border: none;
+    padding-bottom: 3rem;
+}
+
+.contentNav p {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: inherit;
+    text-transform: capitalize;
+}
+
+.homeAndArrow {
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+}
+
+.arrowUp {
+    transform: rotate(-135deg);
+    border: solid var(--white);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 0;
+}
+
+.arrowDown {
+    transform: rotate(45deg);
+    border: solid var(--white);
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 10px;
+}

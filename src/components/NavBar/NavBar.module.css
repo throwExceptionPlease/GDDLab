@@ -1,0 +1,107 @@
+.navBarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    /* position: fixed; */
+    width: 100vw;
+    z-index: 100;
+    background-color: var(--beige);
+}
+
+/* logo container */
+.logoContainer {
+    width: 25%;
+    text-align: center;
+}
+
+.logoName {
+    font-family: inherit;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.logoName:hover {
+    color: var(--light-green);
+}
+
+/* right side content of the navbar */
+.rightContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    flex-wrap: wrap;
+}
+
+/* styling for dropdown tab */
+.formsDropdown {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.droppedItemsContainer {
+    border-radius: 5px;
+}
+
+.droppedItemsContainer button {
+    border: none;
+    outline: none;
+}
+
+.formsDropdown:hover .droppedItemsContainer {
+    display: block;
+    border-width: 1px;
+}
+
+.droppedItemsContainer {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.droppedItemsContainer #formItem {
+    float: none;
+}
+
+.droppedItemsFlex {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    background-color: var(--white);
+    border-radius: 5px;
+}
+
+/* styling of logo name */
+.logoName {
+    color: var(--dark-green);
+    font-size: 3em;
+}
+
+.rightContainer {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+/* styling of nav bar items */
+.rightContainer a, .rightContainer button {
+    text-decoration: none;
+    color: var(--dark-green);
+    text-transform: uppercase;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 5px 20px;
+    border-radius: 5px;
+}
+
+.rightContainer #dropItem:hover, .rightContainer a:hover, .rightContainer button:hover { 
+    background-color: var(--light-green);
+    color: var(--white);
+}
+
+.rightContainer .activeHeader {
+    background-color: var(--light-green);
+    color: var(--white);
+}

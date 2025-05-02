@@ -1,0 +1,79 @@
+.cardMainContainer {
+    background-color: var(--dark-green);
+    display: block;
+    width: 40vh;
+    height: 50vh;
+    border-radius: 5px;
+    margin-left: 5%;
+}
+
+.imageContainer {
+    position: relative;
+    top: -30%;
+    width: inherit; 
+}
+
+.imageContainer .img {
+    width: 10em;
+    height: 10em;
+    object-fit: cover;  /* Prevent distortion */
+    border-radius: 100%;
+}
+
+.interactiveContainer {
+    top: -30%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+    justify-content: space-between;
+    padding-bottom: 10%;
+    background-color: var(--dark-green);
+    border-radius: 5px;
+    overflow:hidden;
+}
+
+.teamName {    
+    word-wrap: break-word;
+    margin-bottom: 0;
+    color: var(--white);
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 100%;
+    align-self: center;
+    font-size: 1.75em;
+}
+
+.teamMembersContainer {
+    margin: -50px;
+    line-height: 100%;
+    font-size: 1.25em;
+}
+
+.teamMembersContainer p {
+    color: var(--white);
+    margin: 0;
+}
+
+.teamBoardBtn {
+    background-color: var(--beige);
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: fit-content;
+    display: flex;
+    align-self: center;
+    margin-top: 2em;
+    border-radius: 30px;
+}
+
+/* Styling for hovering over the team board btn */
+/* .teamBoardBtn:hover {
+
+} */
+
+.teamBoardBtn a {
+    text-decoration: none;
+    color: inherit;
+}

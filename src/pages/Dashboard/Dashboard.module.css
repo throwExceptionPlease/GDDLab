@@ -1,0 +1,17 @@
+.dashboardContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 120px;
+    text-align: center;
+    overflow-x: auto;
+    width: inherit;
+    height: 65vh;
+    overflow-y: scroll;
+    background-image: url("/public/assets/wavebg.svg");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.dashboardContainer::-webkit-scrollbar {
+    display: none;
+}

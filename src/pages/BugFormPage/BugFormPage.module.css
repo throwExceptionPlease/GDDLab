@@ -1,0 +1,179 @@
+.pageContainer {
+    /* padding-top: 8rem; */
+    background-image: url("/public/assets/wavebg.svg");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.formMainContainer {
+    padding-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    background-color: var(--white);
+    border-radius: 5px;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-bottom: 3em;
+}
+
+.formMainContainer .formHeader {
+    text-align: center;
+    color: var(--dark-green);
+    text-transform: uppercase;
+    font-size: 3em;
+    margin: 0;
+}
+
+.formMainContainer .formDesc {
+    margin: 0;
+}
+
+.formMainContainer .formSectionHeader {
+    color: var(--dark-green);
+    font-weight: 500;
+    margin-top: 1.25em;
+    margin-bottom: 0;
+}
+
+.sectionContainer {
+    width: calc(100% - 30px);
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+}
+
+.sectionContainer label {
+    margin-bottom: 0;
+}
+
+.sectionContainer label span{
+    color: red;
+}
+
+.sectionContainer .simpleInput, .dropDownInput {
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 50%;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+.textAreaInput {
+    font-family: inherit;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 5px;
+    margin-bottom: 10px;
+    resize: vertical;
+    width: 100%;
+    font-size: 1em;
+}
+
+.priorityContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.priorityContainer p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+#highlightPrio button {
+    box-shadow: 0px 0px 1px 3px var(--blue);
+}
+
+.priorityContainer .highPriority {
+    text-align: left;
+}
+
+.priorityContainer .medPriority {
+    text-align: center;
+}
+
+.priorityContainer .lowPriority {
+    text-align: right;
+}
+
+.priorityLabel {
+    font-weight: 600;
+}
+
+.priorityContainer .redBtn {
+    background-color: var(--red);
+    width: 20px;
+    height: 20px;
+    border: transparent;
+    border-radius: 100%;
+}
+
+.priorityContainer .greyBtn {
+    background-color: #D9D9D9;
+    width: 20px;
+    height: 20px;
+    border: transparent;
+    border-radius: 100%;
+}
+
+.priorityContainer .greenBtn {
+    background-color: var(--med-green);
+    width: 20px;
+    height: 20px;
+    border: transparent;
+    border-radius: 100%;
+}
+
+.redBtn:hover, .greyBtn:hover, .greenBtn:hover {
+    cursor: pointer;
+}
+
+.dateInput {
+    font-family: inherit;
+    border-radius: 5px;
+    border-width: 1px;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 25%;
+    font-size: 1em;
+}
+
+.formBtnsContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    align-self: center;
+    margin-top: 25px;
+}
+
+.formBtnsContainer .clearBtn, .formBtnsContainer .submitBtn {
+    border-radius: 25px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.25em;
+    border-width: 0;
+    font-family: inherit;
+}
+
+.formBtnsContainer .clearBtn {
+    background-color: var(--yellow-green);
+}
+
+.formBtnsContainer .submitBtn {
+    background-color: var(--light-green);
+}
+
+.formBtnsContainer button:hover {
+    cursor: pointer;
+}

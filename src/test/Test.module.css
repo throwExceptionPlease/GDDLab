@@ -1,0 +1,8 @@
+.subContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.subContainer input {
+    margin-right: 10px;
+}
