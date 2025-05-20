@@ -58,7 +58,7 @@ table td {
     padding-left: 10px;
 }
 
-.teamHeaderColumn, .userColumn {
+.teamHeaderColumn, .userColumn, .teamMiddleColumn{
     text-align: left;
     padding-left: 10px;
 }
@@ -68,7 +68,7 @@ table td {
     padding-right: 10px;
 }
 
-.teamHeaderColumn, .teamActionsColumn, .userColumn, .moduleColumn, .roleColumn, .actionsColumn {
+.teamHeaderColumn, .teamActionsColumn, .userColumn, .moduleColumn, .roleColumn, .actionsColumn, .teamMiddleColumn {
     border-bottom: 2px solid var(--black);
     font-size: 1.25rem;
 }
@@ -155,7 +155,7 @@ table td {
     width: 50%;
 }
 
-.addModuleTeamInputs input, .addModuleTeamInputs select, .tableRow select{
+.addModuleTeamInputs input, .addModuleTeamInputs select, .tableRow select, .addModuleTeamInputs textarea{
     margin-bottom: 10px;
     border-radius: 5px;
     padding: 0px 10px;

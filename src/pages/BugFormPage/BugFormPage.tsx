@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import {Priority, BugForm, Task, ModuleTeam} from '../../types';
 import { db } from '../../api/firebase';
 import { collection, addDoc, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getModuleTeamByName } from '../../api/database/functions';
 
-const BugFormPage = ({ moduleTeams }: { moduleTeams: string[] }) => { 
+const BugFormPage = ({ moduleTeams }: { moduleTeams: ModuleTeam[] }) => { 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [moduleTeam, setModuleTeam] = useState('');
@@ -59,27 +60,26 @@ const BugFormPage = ({ moduleTeams }: { moduleTeams: string[] }) => {
                 priority: form.priority,
                 desc: form.bugDesc,
                 title: bugTitle, // good for now, might have to add an input for this in the form
-                dueDate: form.targetDate,
-                assignees: [],
+                dueDate: form.targetDate?.toDateString(),
+                assignees: null,
                 attachments: [{
                     url: form.bugLink,
                 }],
                 taskType: "Bug",
+                status: "Todo",
+                taskId: ""
             }
             const taskRef = await addDoc(collection(db, "Tasks"), task);
             console.log("Added task to db: ", task);
 
-            const moduleInf: ModuleTeam = {
-                teamName: "Infrastructure and Interface",
-                teamMembers: ["Rohan Tadisetty", "Raymond Wu", "Inemesit Udo-Akang", "Saikousil Tirumalasetty"],
-                teamImage: "/assets/infint.svg" ,
-                tasks: []
+            const moduleTeamData = await getModuleTeamByName("Infrastructure and Interface");
+
+            if (moduleTeamData) {
+                const moduleTeamRef = doc(db, "ModuleTeams", moduleTeamData.id);
+                await updateDoc(moduleTeamRef, {
+                    tasks: arrayUnion(task)
+                });
             }
-            
-            const moduleTeamRef = await addDoc(collection(db, "ModuleTeams"), moduleInf); // get the module team. add it if it doesn't exist
-            await updateDoc(moduleTeamRef, {
-                tasks: arrayUnion(task)
-            });
 
             console.log("Task added to module team document.");
             
@@ -116,7 +116,7 @@ const BugFormPage = ({ moduleTeams }: { moduleTeams: string[] }) => {
                         <select value={moduleTeam} onChange={(e) => setModuleTeam(e.target.value)} className={styles.dropDownInput}>
                             <option value="" disabled>Select your module team</option>
                             {moduleTeams.map((team, index) => (
-                                <option key={index} value={team}>{team}</option>
+                                <option key={index} value={team.teamName}>{team.teamName}</option>
                             ))}
                         </select>
                     </div>

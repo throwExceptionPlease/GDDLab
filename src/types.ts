@@ -1,12 +1,11 @@
-export type ModuleTeams = ModuleTeam[];
-
 export type ModuleTeam = {
     teamName: string,
     // prm: string,
-    teamMembers: string[], //need to change to Student[]
+    teamMembers: Student[],
     teamImage: string,
     tasks: Task[],
-    id?: string
+    id?: string,
+    teamDesc: string
 };
 
 export type BugForm = {
@@ -44,7 +43,7 @@ export type Student = {
     lastName: string,
     moduleTeam: ModuleTeam | null,
     email: string,
-    password: string,
+    // password: string,
     prm: boolean,
     uid: number,
     id?: string
@@ -57,18 +56,24 @@ export type Admin = {
     email: string,
     password: string,
     birthday: Date | null,
-    isAdmin: "true"
+    isAdmin: "true",
+    uid: number
 }
 
 export type Task = {
     priority: Priority | null,
     desc: string,
     title: string,
-    dueDate: Date | null,
-    assignees: Student[] | null,
+    dueDate: string | undefined,
+    assignees: Student | null,
     attachments: {
         url: string,
     }[], 
     taskType: "Bug" | "Feature" | "Task",
-    id?: string //need to make this permanent
+    taskId: string,
+    reviewer?: Student,
+    status: string,
+    // status: "Todo" | "IP" | "Verification" | "Done",
+    coTeam? : ModuleTeam | undefined,
+    taskCreator?: Student // make this permanent
 }

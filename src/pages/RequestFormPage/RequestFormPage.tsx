@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import NavBar from '../../components/NavBar/NavBar';
 import styles from './RequestFormPage.module.css';
 import { useNavigate } from 'react-router-dom';
-import { Priority, RequestForm } from '../../types';
+import { ModuleTeam, Priority, RequestForm } from '../../types';
 
-const RequestFormPage = ({ moduleTeams }: { moduleTeams: string[] }) => {
+const RequestFormPage = ({ moduleTeams }: { moduleTeams: ModuleTeam[] }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [moduleTeam, setModuleTeam] = useState('');
@@ -81,7 +81,7 @@ const RequestFormPage = ({ moduleTeams }: { moduleTeams: string[] }) => {
                         <select value={moduleTeam} onChange={(e) => setModuleTeam(e.target.value)} className={styles.dropDownInput}>
                             <option value="" disabled>Select your module team</option>
                             {moduleTeams.map((team, index) => (
-                                <option key={index} value={team}>{team}</option>
+                                <option key={index} value={team.teamName}>{team.teamName}</option>
                             ))}
                         </select>
                     </div>

@@ -7,6 +7,7 @@ export type ModuleCardProps = {
 }
 
 const ModuleCard = (props: ModuleCardProps) => {
+    console.log(props.moduleTeam.teamMembers);
     return (
         <div className={styles.cardMainContainer}>
             <div className={styles.imageContainer}>
@@ -16,7 +17,7 @@ const ModuleCard = (props: ModuleCardProps) => {
                 <h1 className={styles.teamName}>{props.moduleTeam.teamName}</h1>
 
                 <div className={styles.teamMembersContainer}>
-                    {props.moduleTeam.teamMembers.map(member => <p>{member}</p>)}
+                    {props.moduleTeam.teamMembers.map(member => <p>{member.firstName + " " + member.lastName}</p>)}
                 </div>
                 <div className={styles.teamBoardBtn}>      
                     <Link to={`/team-board/${props.moduleTeam.teamName.replace(/[^a-zA-Z0-9]/g, "")}`}>
