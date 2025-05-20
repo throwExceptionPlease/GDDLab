@@ -189,6 +189,10 @@ hr {
     font-weight: 500;
 }
 
+#tableTask  td:not(:last-child){
+    border-right: 1px solid black;
+}
+
 /* Test card */
 .testCard {
     background-color: var(--white);
@@ -196,6 +200,7 @@ hr {
     padding-right: 10px;
     border-radius: 10px;
     border: 2px solid var(--white);
+    margin-bottom: 10px;
 }
 
 .testCard:hover {
@@ -209,8 +214,30 @@ hr {
     margin: 0;
 }
 
-.bug {
+.bugTaskType, .featureTaskType, .taskType {
+    border-radius: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.bugTaskType {
+    color: var(--white);
     background-color: var(--red);
+}
+
+.featureTaskType {
+    color: var(--white);
+    background-color: var(--dark-green);
+}
+
+.taskType {
+    color: var(--black);
+    background-color: #D9D9D9;
+}
+
+.High, .Low, .Medium {
     color: var(--white);
     border-radius: 100px;
     padding-left: 10px;
@@ -221,13 +248,16 @@ hr {
 
 .High {
     background-color: var(--red);
-    color: var(--white);
-    border-radius: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
 }
+
+.Low {
+    background-color: var(--med-green);
+}
+
+.Medium {
+    background-color: #FFA800;
+}
+
 
 .cardDesc {
     padding: 0;
@@ -386,4 +416,20 @@ hr {
     border-style: solid;
     border-color: var(--black);
     border-width: 2px;
+}
+
+.tableActionButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.deleteButton, .openButton {
+    background-color: transparent;
+    border: solid 2px var(--white);
+    border-radius: 5px;
+}
+
+.deleteButton:hover, .openButton:hover {
+    border: solid 2px var(--blue);
+    cursor: pointer;
 }

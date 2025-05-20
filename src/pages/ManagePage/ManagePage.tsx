@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar/NavBar";
 import styles from "./ManagePage.module.css";
-import { ModuleTeam, ModuleTeams, Student } from "../../types";
-import { createModuleTeam, createUser, deleteAccountByUid, getAllModuleTeams, getModuleTeamByName, getUserById, updateTeamById, updateUserById } from "../../api/database/users";
+import { ModuleTeam, Student } from "../../types";
+import { addStudentToTeam, createModuleTeam, createUser, deleteUserByUid, getAllModuleTeams, getModuleTeamByName, getTeamMembers, getUserById, getUserByUid, updateTeamById, updateUserById, updateUserByUid } from "../../api/database/functions";
 import { updateCurrentUser } from "firebase/auth";
 
 interface ManageProps {
-    moduleGroups: ModuleTeams;
+    moduleGroups: ModuleTeam[];
     prms: Student[];
     students: Student[];
 }
@@ -20,7 +20,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
     const [studentsCopy, setStudentsCopy] = useState<Student[]>(students);
 
     //copy
-    const [editableTeams, setEditableTeams] = useState<ModuleTeams>(moduleGroups);
+    const [editableTeams, setEditableTeams] = useState<ModuleTeam[]>(moduleGroups);
     const [addModuleMode, setAddModuleMode] = useState(false);
 
     // for adding a module team
@@ -29,6 +29,8 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
     const [newModulePRMCL, setNewModulePRMCL] = useState("");
     const [newModuleStudents, setNewModuleStudents] = useState<Student[]>([]);
     const [newModuleImage, setNewModuleImage] = useState("");
+    const [teamDesc, setTeamDesc] = useState("");
+    const [selectedStudentsModuleTeam, setSelectedStudentsModuleTeam] = useState([]);
 
     // for adding or editing a student
     const [newStudentName, setNewStudentName] = useState("");
@@ -40,10 +42,17 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
     const [newStudentRole, setNewStudentRole] = useState("");
     const [newStudentEmail, setNewStudentEmail] = useState("");
     const [newStudentPwd, setNewStudentPwd] = useState("");
+    
+    const [currEditTeamMembers, setCurrEditTeamMembers] = useState<Student[]>([]);
 
     useEffect(() => {
+        if (currEditTeam) {
+            getTeamMembers(currEditTeam).then((members) => {
+                setCurrEditTeamMembers(members);
+            })
+        }
         
-    }, [selectedSetting, editClicked, currEditTeam, newTeamName, editableTeams, moduleGroups, newStudentName, studentNewTeam, currEditUser, students, studentsCopy]);
+    }, [selectedSetting, editClicked, currEditTeam, newTeamName, editableTeams, moduleGroups, newStudentName, studentNewTeam, currEditUser, students, studentsCopy, currEditTeamMembers]);
 
     // for editing the team name
     const handleTeamSave = async (originalTeamName: string) => {
@@ -72,18 +81,24 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
         setEditClicked(false);
         setCurrEditTeam("");
         setNewTeamName("");
+        setSelectedStudentsModuleTeam([]);
     };
 
-    const handleUserInfoSave = async (user: Student, newName: string, newModule: ModuleTeam | null) => {
+    const handleUserInfoSave = async (user: Student, newName: string, newModule: ModuleTeam | null, newStudentRole: string) => {
         try {
             if (!user.id) {
                 throw Error("Invalid user");
             } else {
-                const student = await getUserById(user.id);
+                const student = await getUserByUid(user.uid);
                 const nameSplit = newName.split(" ")
                 if (student) {
-                    await updateUserById(user.id, {firstName: nameSplit[0], lastName: nameSplit[1], moduleTeam: newModule})
+                    await updateUserByUid(student as Student, {firstName: nameSplit[0], lastName: nameSplit[1], moduleTeam: newModule, prm: (newStudentRole === "Admin"? true : false)})
                 }
+
+                if (newModule) {
+                    await addStudentToTeam(student as Student, newModule);
+                }
+
                 window.location.reload();
             }
         }
@@ -94,14 +109,14 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
 
     async function addNewModule() {
         const teamMemberIds = newModuleStudents
-        .map((student) => student.id)
-        .filter((id): id is string => id !== undefined);
+        .map((student) => student)
 
         const newModuleTeam: ModuleTeam = {
             teamName: newModuleName,
             teamMembers: teamMemberIds,
             teamImage: "",
-            tasks: []
+            tasks: [],
+            teamDesc: teamDesc
         }
 
         await createModuleTeam(newModuleTeam);
@@ -111,7 +126,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
     async function addNewStudent() {
         const newStudentNameParse = newStudentName.split(" ");
         
-        const teamData = await getModuleTeamByName(selectedModuleTeam); // Pass in team name (string)
+        const teamData = await getModuleTeamByName(selectedModuleTeam);
     
         if (teamData) {
             const newStudent: Student = {
@@ -122,10 +137,11 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                     teamName: teamData.teamName,
                     teamMembers: teamData.teamMembers,
                     teamImage: teamData.teamImage,
-                    tasks: teamData.tasks
+                    tasks: teamData.tasks,
+                    teamDesc: teamData.teamDesc
                 },
                 email: newStudentEmail,
-                password: newStudentPwd,
+                // password: newStudentPwd,
                 prm: newStudentRole === "PRM" ? true : false,
                 uid: Number(newStudentUID)
             };
@@ -144,7 +160,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                 lastName: newStudentNameParse[1],
                 moduleTeam: null,
                 email: newStudentEmail,
-                password: newStudentPwd,
+                // password: newStudentPwd,
                 prm: newStudentRole === "PRM" ? true : false,
                 uid: Number(newStudentUID)
             };
@@ -161,21 +177,22 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
 
     const deleteUser = async (uid: number) => {
         try {
-            await deleteAccountByUid(uid);
+            await deleteUserByUid(uid);
             console.log("Successfully delete the user: ", uid);
         } catch (error) {
             console.error("There was a problem with deleting the user: ", error);
         }
     }
 
-    const changeStudentNewTeam = async (teamName: string) => {
+    const changeStudentNewTeam = async (teamName: string, student: Student) => {
         try {
             const teamDoc = await getModuleTeamByName(teamName);
             setStudentNewTeam(teamDoc);
         } catch (error) {
             console.log("Had trouble finding and setting the student's newly assigned team");
         }
-    }
+    };
+    
     
     return (
         <div>
@@ -194,6 +211,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                 <thead>
                                     <tr>
                                         <th className={styles.teamHeaderColumn}>Team Name</th>
+                                        {editClicked ? (<th className={styles.teamMiddleColumn}>Members</th>) : <th className={styles.teamMiddleColumn}></th>}
                                         <th className={styles.teamActionsColumn}>Actions</th>
                                     </tr>
                                 </thead>
@@ -209,6 +227,21 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                     />
                                                 ) : (
                                                     team.teamName
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editClicked && currEditTeam === team.teamName && (
+                                                    <select multiple>
+                                                        {students.map((student) => (
+                                                            <option
+                                                                key={student.uid}
+                                                                value={student.uid}
+                                                                selected={currEditTeamMembers?.some(member => member.uid === student.uid)}
+                                                            >
+                                                                {student.firstName + ' ' + student.lastName}
+                                                            </option>
+                                                        ))}
+                                                    </select>
                                                 )}
                                             </td>
                                             <td>
@@ -274,7 +307,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                                 const selectedIds = Array.from(e.target.selectedOptions, (option) => option.value);
                                                               
                                                                 const selectedStudents = students.filter((student) =>
-                                                                  selectedIds.includes(student.id || "")
+                                                                  selectedIds.includes(student.uid.toString())
                                                                 );
                                                               
                                                                 setNewModuleStudents(selectedStudents);
@@ -289,6 +322,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                                 </option>
                                                             ))}
                                                         </select>
+                                                        <textarea onChange={(e) => setTeamDesc(e.target.value)} placeholder="Add a team description"/>
                                                     </div>
                                                 </div>   
                                             )}
@@ -335,7 +369,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                             />
                                                         </td>
                                                         <td>
-                                                            <select value={studentNewTeam == null? "New Team" : studentNewTeam.teamName} onChange={(e) => changeStudentNewTeam(e.target.value)}>
+                                                            <select value={studentNewTeam == null? "New Team" : studentNewTeam.teamName} onChange={(e) => changeStudentNewTeam(e.target.value, student)}>
                                                                 <option value="null">Unassigned</option>
                                                                 {moduleGroups.map((module) => (
                                                                     <option key={module.teamName} value={module.teamName}>{module.teamName}</option>
@@ -343,7 +377,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select value={student.prm ? "Admin" : "Student"}>
+                                                            <select value={newStudentRole} onChange={(e) => setNewStudentRole(e.target.value)}>
                                                                 <option value="Admin">Admin</option>
                                                                 <option value="Student">Student</option>
                                                             </select>
@@ -364,7 +398,7 @@ const ManagePage = ({ moduleGroups, prms, students }: ManageProps) => {
                                                     <div className={styles.actionButtons}>
                                                         <button className={styles.deleteBtn} onClick={() => deleteUser(student.uid)}>Delete</button> 
                                                         <button 
-                                                            onClick={() => handleUserInfoSave(student, newStudentName, studentNewTeam)} 
+                                                            onClick={() => handleUserInfoSave(student, newStudentName, studentNewTeam, newStudentRole)} 
                                                             className={styles.saveBtn}
                                                         >
                                                             Save
