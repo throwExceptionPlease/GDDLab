@@ -1,13 +1,15 @@
+/*
+ * Functions for creating, deleting, and editing Request/Bug tickets
+ 
+*/
 // import { BugForm, RequestForm } from "../../types";
 // import { forms } from '../../googleAuthorization';
 // import { db } from "../firebaseConfig";
 // import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 
-// create new Bug and RequestForm objects
+// TODO: getFormById
 
-// get formById
-
-// removeFormById
+// TODO: removeFormById
 
 export async function doNothing() {
     try {

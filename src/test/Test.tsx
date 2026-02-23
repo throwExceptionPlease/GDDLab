@@ -1,3 +1,7 @@
+/*
+ * This is a place to test API functions. This should NOT be accessible to users and should only be accessible via admin auth.
+*/
+
 import { useEffect, useState } from "react";
 import { addDoc, collection, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../api/firebase"; // adjust the path to your Firebase config
@@ -118,7 +122,7 @@ const Test = () => {
         };
 
         try {
-            await addDoc(collection(db, "Students"), newStudent);
+            await addDoc(collection(db, "Users"), newStudent);
             addStudentToTeam(newStudent, moduleTeam.teamName);
 
             alert("Student added successfully!");
@@ -323,23 +327,6 @@ const Test = () => {
                 <button onClick={() => addGroupofStudents(groupOfStudents)}>Add group of PRMS</button>
                 <button onClick={() => addGroupOfTeams(ModuleGroups)}>Add group of teams</button>
                 <button onClick={deleteExistingModulesInTest}>Delete existing bad modules</button>
-
-                {/* <p>Module Team</p>
-                <select
-                    value={moduleTeam?.teamName || ""}
-                    onChange={(e) => {
-                        const selectedTeam = moduleTeamOptions.find(team => team.teamName === e.target.value);
-                        setModuleTeam(selectedTeam || null);
-                    }}
-                >
-                    <option value="">Select a team</option>
-                    {moduleTeamOptions.map((team, index) => (
-                        <option key={index} value={team.teamName}>
-                            {team.teamName}
-                        </option>
-                    ))}
-                </select> */}
-
 
                 <button onClick={() => getAllTasks(false)}>Get all Tasks</button>
 

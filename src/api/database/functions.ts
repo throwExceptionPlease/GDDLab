@@ -207,7 +207,7 @@ export const assignStudentToModule = async (user: Student, moduleTeam: ModuleTea
         console.log(`Student ${user.uid} assigned to module team ${moduleTeam.teamName}.`);
     
         // Update student's assigned team
-        const studentRef = doc(db, "Students", String(user.uid));
+        const studentRef = doc(db, "Users", String(user.uid));
         await updateDoc(studentRef, {
           moduleTeam: moduleTeam.teamName
         });
